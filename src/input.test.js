@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 
 import { findByTestAttr, storeFactory } from "../test/testUtils";
-import Input from "./Input";
+import Input, { UnconnectedInput } from "./Input";
 
 //Consider looking into redux-mock-store
 /**
@@ -66,14 +66,32 @@ describe("render", () => {
 describe("redux props", () => {
   test("has success piece of state as prop", () => {
     const success = true;
-    const wrapper = setup({ success});
-    const successProp =wrapper.instance().props.success;
+    const wrapper = setup({ success });
+    const successProp = wrapper.instance().props.success;
     expect(successProp).toBe(success);
   });
-  test('guessWord action creator is a function prop',()=>{
+  test("guessWord action creator is a function prop", () => {
     const wrapper = setup();
     const guessWordProp = wrapper.instance().props.guessWord;
-    expect(guessWordProp).toBeInstanceOf(Function)
+    expect(guessWordProp).toBeInstanceOf(Function);
+  });
+});
 
-  })
+describe("`guessWord` action creator call", () => {
+  test("`guessWord` runs on Submit button clicked", () => {
+    const guessWordMock = jest.fn();
+    const props = {
+      success: false,
+      guessWord: guessWordMock,
+    };
+
+    //set up input with guessWordMock as guessWord prop
+    const wrapper = shallow(<UnconnectedInput {...props} />);
+
+    //simulate submit click
+    const submitButton = findByTestAttr(wrapper, "submit-button");
+    submitButton.simulate("click");
+    //check to see if guessWordMock ran
+    expect(guessWordMock).toHaveBeenCalledTimes(1);
+  });
 });
