@@ -8,7 +8,7 @@ import Input from "./input";
 import TotalGuessed from "./TotalGuessed";
 import NewWordButton from "./NewWordButton";
 
-import { getSecretWord, resetGame} from "./actions";
+import { getSecretWord, resetGame } from "./actions";
 
 export class UnconnectedApp extends Component {
   /**
@@ -23,14 +23,18 @@ export class UnconnectedApp extends Component {
     return (
       <div className="container">
         <h1>Jotto</h1>
-        <div>The secret word is {this.props.secretWord}</div>
+        {this.props.success || this.props.gaveUp ? (
+          <div>The secret word is {this.props.secretWord}</div>
+        ) : null}
+
         <Congrats success={this.props.success} />
         <Input />
+        {/* Something wrong with this.props.gaveUp */}
         <NewWordButton
-          display={this.props.success}
+
+          display={this.props.success || this.props.gaveUp}
           resetAction={this.props.resetGame}
         />
-
 
         <GuessedWords guessedWords={this.props.guessedWords} />
         <TotalGuessed guessedWords={this.props.guessedWords} />
