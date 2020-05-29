@@ -40,6 +40,12 @@ describe("redux properties", () => {
     const getSecretWordProp = wrapper.instance().props.getSecretWord;
     expect(getSecretWordProp).toBeInstanceOf(Function);
   });
+  test('`resetGame` action creator is a function on the props',()=>{
+    const wrapper = setup();
+    const resetGameProp =  wrapper.instance().props.resetGame;
+    expect(resetGameProp).toBeInstanceOf(Function)
+  });
+
 });
 
 test("`getSecretWord` runs on App mount", () => {
@@ -58,4 +64,3 @@ test("`getSecretWord` runs on App mount", () => {
   // check to see if mock ran
   expect(getSecretWordMock).toHaveBeenCalledTimes(2);
 });
-

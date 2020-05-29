@@ -7,15 +7,15 @@ export class UnconnectedInput extends Component {
     super(props);
     // initialize state
     this.state = { currentGuess: null };
-    this.submitGuessWord  = this.submitGuessWord.bind(this);
+    this.submitGuessWord = this.submitGuessWord.bind(this);
   }
-  submitGuessWord(evt){
+  submitGuessWord(evt) {
     evt.preventDefault();
-    const guessedWord =  this.state.currentGuess
-    if(guessedWord && guessedWord.length > 0){
-      this.props.guessWord(guessedWord)
+    const guessedWord = this.state.currentGuess;
+    if (guessedWord && guessedWord.length > 0) {
+      this.props.guessWord(guessedWord);
+      this.setState({ currentGuess: "" });
     }
-    
   }
 
   render() {
@@ -25,8 +25,8 @@ export class UnconnectedInput extends Component {
           data-test="input-box"
           className="mb-2 mx-sm-3"
           type="text"
-          value = {this.state.currentGuess}
-          onChange={(evt)=>this.setState({currentGuess: evt.target.value})}
+          value={this.state.currentGuess}
+          onChange={(evt) => this.setState({ currentGuess: evt.target.value })}
           placeholder="enter guess"
         />
         <button
