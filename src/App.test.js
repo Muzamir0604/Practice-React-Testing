@@ -22,12 +22,14 @@ describe("redux properties", () => {
   const gaveUp = false;
   const secretWord = "party";
   const guessedWords = [{ guessedWord: "train", letterMatchCount: 3 }];
+  const userEnter = null;
   beforeEach(() => {
     wrapper = setup({
       success,
       gaveUp,
       secretWord,
       guessedWords,
+      userEnter,
     });
   });
   test("has access to `success` state", () => {
@@ -46,6 +48,10 @@ describe("redux properties", () => {
     const guessedWordsProp = wrapper.instance().props.guessedWords;
     expect(guessedWordsProp).toEqual(guessedWords);
   });
+  test("has access to `userEnter` state",()=>{
+    const userEnterProps = wrapper.instance().props.userEnter;
+    expect(userEnterProps).toEqual(userEnter)
+  })
   test("`getSecretWord` action creator is a function on the props", () => {
     const getSecretWordProp = wrapper.instance().props.getSecretWord;
     expect(getSecretWordProp).toBeInstanceOf(Function);
@@ -54,6 +60,15 @@ describe("redux properties", () => {
     const resetGameProp = wrapper.instance().props.resetGame;
     expect(resetGameProp).toBeInstanceOf(Function);
   });
+  test("`setUserEntering` action creator is a function on the props", () => {
+    const setUserEnteringProp = wrapper.instance().props.setUserEntering;
+    expect(setUserEnteringProp).toBeInstanceOf(Function);
+  });
+  test("`setUserSecretWord` action creator is a function on the props", () => {
+    const setUserSecretWordProp = wrapper.instance().props.setUserSecretWord;
+    expect(setUserSecretWordProp).toBeInstanceOf(Function);
+  });
+  
 });
 
 test("`getSecretWord` runs on App mount", () => {

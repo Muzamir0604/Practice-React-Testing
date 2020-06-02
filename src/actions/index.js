@@ -8,6 +8,8 @@ export const actionTypes = {
   SET_SECRET_WORD: 'SET_SECRET_WORD',
   RESET_GAME: 'RESET_GAME',
   GIVE_UP: 'GIVE_UP',
+  ENTERING: 'ENTERING',
+  ENTERED: 'ENTERED',
 };
 
 /**
@@ -87,3 +89,27 @@ export const giveUp = () => {
   return { type: actionTypes.GIVE_UP };
 };
 // END: Challenge #3: Give Up Button
+
+
+// Challenge #4: Enter Secret Word
+/**
+ * Action creator to dispatch USER_ENTERED and SET_SECRET_WORD actions.
+ * @function setUserSecretWord
+ * @param {string} userSecretWord - Secret word entered by user.
+ * @returns {function} - Redux Thunk function.
+ */
+export const setUserSecretWord = (userSecretWord) => {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.SET_SECRET_WORD, payload: userSecretWord });
+    dispatch({ type: actionTypes.ENTERED });
+  }
+};
+
+/**
+ * Action creator that returns USER_ENTERING action type.
+ * @function setUserEntering
+ * @returns {object} - Action with type USER_ENTERING.
+ */
+export const setUserEntering = () => (
+  { type: actionTypes.ENTERING }
+);

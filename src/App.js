@@ -8,7 +8,8 @@ import Input from "./input";
 import TotalGuessed from "./TotalGuessed";
 import NewWordButton from "./NewWordButton";
 
-import { getSecretWord, resetGame } from "./actions";
+import { getSecretWord, resetGame, setUserEntering, setUserSecretWord } from "./actions";
+import EnterWordButton from "./EnterWordButton";
 
 export class UnconnectedApp extends Component {
   /**
@@ -38,6 +39,10 @@ export class UnconnectedApp extends Component {
 
         <GuessedWords guessedWords={this.props.guessedWords} />
         <TotalGuessed guessedWords={this.props.guessedWords} />
+        <EnterWordButton 
+            display={this.props.guessedWords.length === 0}
+            buttonAction={this.props.setUserEntering} 
+          />
       </div>
     );
   }
@@ -45,10 +50,12 @@ export class UnconnectedApp extends Component {
 const actions = {
   getSecretWord,
   resetGame,
+  setUserEntering,
+  setUserSecretWord,
 };
 
 const mapStateToProps = (state) => {
-  const { success, guessedWords, secretWord, gaveUp } = state;
-  return { success, guessedWords, secretWord, gaveUp };
+  const { success, guessedWords, secretWord, gaveUp, userEnter } = state;
+  return { success, guessedWords, secretWord, gaveUp, userEnter };
 };
 export default connect(mapStateToProps, actions)(UnconnectedApp);
